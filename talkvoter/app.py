@@ -3,10 +3,11 @@ from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from .models import db, Talk, Vote
 from .v1_resources import api_bp
+from .config import Config
 
 
 application = Flask(__name__)
-application.config.from_object('talkvoter.settings')
+application.config.from_object(Config)
 
 # initialize and create the database
 db.init_app(application)
