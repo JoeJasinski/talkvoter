@@ -26,6 +26,10 @@ build:
 up:
 	docker-compose up -d app db
 
+iup:
+	# build and run interactively
+	docker-compose up --build
+
 start:
 	docker-compose start app db
 
