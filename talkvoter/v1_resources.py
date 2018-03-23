@@ -80,7 +80,6 @@ class VoteResource(Resource):
         else:
             db.session.add(obj.data)
             db.session.commit()
-            data = schema.dump(obj.data)
             msg = "Success"
             ret_code = 200
         return {"message": msg}, ret_code
