@@ -19,7 +19,7 @@ def get_talk_or_abort(id):
     return talk_obj
 
 
-class TalksResource(Resource):
+class TalksListResource(Resource):
 
     def get(self):
         schema = TalkSchema()
@@ -29,10 +29,10 @@ class TalksResource(Resource):
         return data, 200
 
 
-api.add_resource(TalksResource, '/talks/', endpoint="api.talks")
+api.add_resource(TalksListResource, '/talks/', endpoint="api.talks")
 
 
-class TalkResource(Resource):
+class TalkDetailResource(Resource):
 
     def get(self, id):
         schema = TalkSchema()
@@ -41,7 +41,7 @@ class TalkResource(Resource):
         return data, 200
 
 
-api.add_resource(TalkResource, '/talks/<int:id>/', endpoint="api.talk")
+api.add_resource(TalkDetailResource, '/talks/<int:id>/', endpoint="api.talk")
 
 
 class TalkRandResource(Resource):
