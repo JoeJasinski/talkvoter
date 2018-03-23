@@ -1,7 +1,7 @@
 from flask_restful import Resource, Api
-from flask import Blueprint
+from flask import Blueprint, abort
+from sqlalchemy.sql.expression import func
 from marshmallow import ValidationError
-from webargs.flaskparser import use_args
 from .models import db, Talk
 from .serializers import VoteSchema, TalkSchema
 from .constants import VoteValue
@@ -32,8 +32,7 @@ class TalkResource(Resource):
         data = {}
         talk_obj = db.session.query(Talk).filter(Talk.id == id).first()
         if not talk_obj:
-            ret_code = 404
-            data = {"message": "`talk_id` is not in database"}
+            abort(404, '`talk_id` is not in database')
         else:
             ret_code = 200
             data = schema.dump(talk_obj).data
@@ -41,6 +40,23 @@ class TalkResource(Resource):
 
 
 api.add_resource(TalkResource, '/talks/<int:id>/', endpoint="api.talk")
+
+
+class TalkRandResource(Resource):
+
+    def get(self):
+        schema = TalkSchema()
+        data = {}
+        talk_obj = db.session.query(Talk).order_by(func.random()).first()
+        if not talk_obj:
+            abort(404, '`talk_id` is not in database')
+        else:
+            ret_code = 200
+            data = schema.dump(talk_obj).data
+        return data, ret_code
+
+
+api.add_resource(TalkRandResource, '/talks/random/', endpoint="api.talkrand")
 
 
 class VoteResource(Resource):
