@@ -23,7 +23,6 @@ class TalksListResource(Resource):
 
     def get(self):
         schema = TalkSchema()
-        data = {}
         talk_objs = db.session.query(Talk)
         data = schema.dump(talk_objs, many=True).data
         return data, 200
