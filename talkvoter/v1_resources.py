@@ -33,7 +33,7 @@ class TalkResource(Resource):
         talk_obj = db.session.query(Talk).filter(Talk.id == id).first()
         if not talk_obj:
             ret_code = 404
-            data = {"message": "talk not found"}
+            data = {"message": "`talk_id` is not in database"}
         else:
             ret_code = 200
             data = schema.dump(talk_obj).data
