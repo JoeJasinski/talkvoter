@@ -31,7 +31,7 @@ class Vote(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     talk_id = db.Column(db.Integer, db.ForeignKey('talk.id'))
-    talk = relationship("Talk", backref="vote")
+    talk = relationship("Talk", backref="votes")
     value = db.Column(db.String)
     processed = db.Column(db.Boolean, default=False)
 
