@@ -2,7 +2,7 @@ import requests
 from flask_restful import Resource, Api
 from flask_restful import reqparse
 from flask_login import login_required
-from flask import Blueprint, abort
+from flask import Blueprint, abort, current_app
 from flask_login import current_user
 from sqlalchemy.sql.expression import func
 from marshmallow import ValidationError
@@ -132,7 +132,8 @@ class PredictResource(Resource):
 
     @login_required
     def get(self):
-        url = "http://predict:8000/predict/"
+        predict_host = current_app.config['PREDICT_HOST']
+        url = "http://{}/predict/".format(predict_host)
         user = current_user
         votes = dict(
             db.session.query(Talk.id, Vote.value).join(Vote).filter(Vote.user == current_user))

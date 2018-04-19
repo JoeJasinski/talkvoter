@@ -29,6 +29,7 @@ services:
        - DATABASE_URL=postgres://postgres@db/postgres
        - SITE_DIR=/app/
        - SECRET_KEY=super secret key
+       - PREDICT_HOST=predict:8000
      networks:
        - talkvoter_net
      depends_on:
