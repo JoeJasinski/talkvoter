@@ -1,12 +1,13 @@
-from flask import Flask, render_template
-
+from flask import Flask
+from .resources import api_bp
 
 application = Flask(__name__)
 
 
-@application.route("/")
-def hello():
-    return "Hello World!"
+# register the API views
+application.register_blueprint(
+    api_bp,
+    url_prefix="")
 
 
 # Run the main loop
